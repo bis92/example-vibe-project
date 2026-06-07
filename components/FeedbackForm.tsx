@@ -56,7 +56,8 @@ export function FeedbackForm({ slug }: { slug: string }) {
       )}
       {status === "err" && (
         <p className="text-xs text-red-400">
-          전송 실패 — /api/feedback이 아직 stub입니다. IDEAS.md #3에서 완성하세요.
+          전송 실패 — /api/feedback이 아직 stub입니다. IDEAS.md #3에서
+          완성하세요.
         </p>
       )}
     </form>
