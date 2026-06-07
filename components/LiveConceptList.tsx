@@ -15,9 +15,7 @@ export function LiveConceptList() {
   }, []);
 
   if (error) {
-    return (
-      <p className="text-sm text-red-400">불러오기 실패: {error}</p>
-    );
+    return <p className="text-sm text-red-400">불러오기 실패: {error}</p>;
   }
 
   if (concepts.length === 0) {

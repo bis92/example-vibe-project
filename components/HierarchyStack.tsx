@@ -62,14 +62,18 @@ export function HierarchyStack() {
             </span>
             <div>
               <p className="text-base font-semibold">{layer.scope}</p>
-              <p className="text-xs text-[var(--color-muted)]">{layer.author}</p>
+              <p className="text-xs text-[var(--color-muted)]">
+                {layer.author}
+              </p>
             </div>
           </div>
           <div className="flex-1">
             <p className="font-mono text-xs text-[var(--color-brand-2)]">
               {layer.location}
             </p>
-            <p className="mt-1 text-sm text-[var(--color-muted)]">{layer.detail}</p>
+            <p className="mt-1 text-sm text-[var(--color-muted)]">
+              {layer.detail}
+            </p>
           </div>
         </div>
       ))}

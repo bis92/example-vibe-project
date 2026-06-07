@@ -9,10 +9,7 @@ type Props = {
 
 export function Card({ href, title, description, badge }: Props) {
   return (
-    <Link
-      href={href}
-      className="surface surface-hover block p-6 no-underline"
-    >
+    <Link href={href} className="surface surface-hover block p-6 no-underline">
       {badge && (
         <span className="mb-3 inline-block rounded-full border border-[var(--color-border)] px-3 py-1 text-xs text-[var(--color-muted)]">
           {badge}

@@ -7,5 +7,8 @@ export async function POST(req: Request) {
   // - 메모리 저장소(또는 파일)에 저장
   // - 성공 시 { id, savedAt } 반환, 검증 실패 시 400 + AppError 일관 응답
   await req.text();
-  return NextResponse.json({ stub: true, message: "not implemented" }, { status: 501 });
+  return NextResponse.json(
+    { stub: true, message: "not implemented" },
+    { status: 501 },
+  );
 }
