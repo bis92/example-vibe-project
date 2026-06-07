@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "강의 더미 프로젝트 — Claude Code 한국어 개념 시각화 페이지 + 학습용 미완성 기능",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
