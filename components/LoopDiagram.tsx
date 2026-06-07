@@ -78,6 +78,91 @@ export function LoopDiagram() {
   }, [handleEsc]);
 
   return (
+    <div className="grid items-center gap-10 md:grid-cols-[400px_1fr]">
+      <svg
+        viewBox="0 0 400 400"
+        className="mx-auto w-full max-w-[400px]"
+        role="img"
+        aria-label="에이전트 루프 다이어그램"
+      >
+        <defs>
+          <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.7" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.7" />
+          </linearGradient>
+          <marker
+            id="arrow"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#06b6d4" />
+          </marker>
+        </defs>
+        <circle
+          cx={cx}
+          cy={cy}
+          r={radius}
+          fill="none"
+          stroke="url(#ring)"
+          strokeWidth="1.5"
+          strokeDasharray="6 4"
+        />
+        {positions.map((p, i) => {
+          const next = positions[(i + 1) % positions.length];
+          const midAngle =
+            ((i + 0.5) / STEPS.length) * Math.PI * 2 - Math.PI / 2;
+          const arcRadius = radius;
+          const sx = cx + Math.cos(midAngle - 0.3) * arcRadius;
+          const sy = cy + Math.sin(midAngle - 0.3) * arcRadius;
+          const ex = cx + Math.cos(midAngle + 0.3) * arcRadius;
+          const ey = cy + Math.sin(midAngle + 0.3) * arcRadius;
+          return (
+            <path
+              key={`arc-${i}`}
+              d={`M ${sx} ${sy} A ${arcRadius} ${arcRadius} 0 0 1 ${ex} ${ey}`}
+              fill="none"
+              stroke="#06b6d4"
+              strokeWidth="1.5"
+              markerEnd="url(#arrow)"
+              opacity="0.7"
+              style={{
+                ...(next ? {} : {}),
+              }}
+            />
+          );
+        })}
+        {positions.map((p, i) => (
+          <g key={`node-${i}`}>
+            <circle
+              cx={p.x}
+              cy={p.y}
+              r="28"
+              fill="#11111a"
+              stroke="#a855f7"
+              strokeWidth="1.5"
+            />
+            <text
+              x={p.x}
+              y={p.y + 4}
+              textAnchor="middle"
+              fill="#e7e7f0"
+              fontSize="13"
+              fontWeight="600"
+            >
+              {i + 1}
+            </text>
+          </g>
+        ))}
+        <text
+          x={cx}
+          y={cy - 8}
+          textAnchor="middle"
+          fill="#9897a8"
+          fontSize="11"
     <div
       ref={containerRef}
       className="grid items-center gap-10 md:grid-cols-[400px_1fr]"

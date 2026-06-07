@@ -53,9 +53,9 @@ export default function AgentLoopPage() {
             한 번 더 검토합니다.
           </li>
           <li>
-            <span className="text-[var(--color-fg)]">결과 관찰</span> 단계에서
-            테스트·로그·에러가 다음 사이클로 들어가야 self-correction 루프가
-            닫힙니다. 강의의 &ldquo;Closed-loop Validation&rdquo;이 이
+            <span className="text-[var(--color-fg)]">결과 관찰</span>{" "}
+            단계에서 테스트·로그·에러가 다음 사이클로 들어가야 self-correction
+            루프가 닫힙니다. 강의의 &quot;Closed-loop Validation&quot;이 이
             부분입니다.
           </li>
         </ul>
