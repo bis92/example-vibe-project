@@ -47,6 +47,14 @@ const STEPS: Step[] = [
   },
 ];
 
+// Math.cos/sin은 ECMAScript 스펙상 구현체별로 마지막 비트가 다를 수 있어
+// (transcendental 함수), Node V8과 브라우저 V8이 같은 입력에 다른 값을 낸다.
+// SVG 속성에 그대로 박으면 SSR/CSR hydration mismatch가 발생하므로
+// 모든 좌표를 소수 3자리로 잘라 플랫폼 의존성을 제거한다.
+function round3(n: number): number {
+  return Math.round(n * 1000) / 1000;
+}
+
 export function LoopDiagram() {
   const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,8 +66,8 @@ export function LoopDiagram() {
   const positions = STEPS.map((_, i) => {
     const angle = (i / STEPS.length) * Math.PI * 2 - Math.PI / 2;
     return {
-      x: cx + Math.cos(angle) * radius,
-      y: cy + Math.sin(angle) * radius,
+      x: round3(cx + Math.cos(angle) * radius),
+      y: round3(cy + Math.sin(angle) * radius),
     };
   });
 
@@ -119,10 +127,10 @@ export function LoopDiagram() {
             const midAngle =
               ((i + 0.5) / STEPS.length) * Math.PI * 2 - Math.PI / 2;
             const arcRadius = radius;
-            const sx = cx + Math.cos(midAngle - 0.3) * arcRadius;
-            const sy = cy + Math.sin(midAngle - 0.3) * arcRadius;
-            const ex = cx + Math.cos(midAngle + 0.3) * arcRadius;
-            const ey = cy + Math.sin(midAngle + 0.3) * arcRadius;
+            const sx = round3(cx + Math.cos(midAngle - 0.3) * arcRadius);
+            const sy = round3(cy + Math.sin(midAngle - 0.3) * arcRadius);
+            const ex = round3(cx + Math.cos(midAngle + 0.3) * arcRadius);
+            const ey = round3(cy + Math.sin(midAngle + 0.3) * arcRadius);
             return (
               <path
                 key={`arc-${i}`}

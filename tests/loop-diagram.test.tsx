@@ -98,4 +98,44 @@ describe("LoopDiagram 툴팁", () => {
     fireEvent.mouseEnter(firstNode);
     expect(firstNode.getAttribute("aria-describedby")).toBe("tooltip-0");
   });
+
+  // Math.cos/sin 결과의 마지막 비트는 Node V8과 브라우저 V8 간 다를 수 있어
+  // (ECMAScript 스펙상 transcendental 함수는 구현체별 정밀도 허용),
+  // 좌표를 그대로 SVG 속성에 넣으면 SSR/CSR mismatch가 발생한다.
+  // 모든 좌표·path 값을 소수 3자리 이하로 반올림해 둬야 한다.
+  it("SVG 좌표는 SSR/CSR mismatch 방지를 위해 소수 3자리 이하로 반올림되어 있다", () => {
+    const { container } = render(<LoopDiagram />);
+
+    const decimalsOf = (n: string) => {
+      const dot = n.indexOf(".");
+      return dot === -1 ? 0 : n.length - dot - 1;
+    };
+
+    // <path d="..."> 내부 모든 숫자
+    container.querySelectorAll("path[d]").forEach((path) => {
+      const d = path.getAttribute("d") ?? "";
+      const numbers = d.match(/-?\d+\.\d+/g) ?? [];
+      numbers.forEach((n) => {
+        expect(
+          decimalsOf(n),
+          `path d 안의 ${n}이 소수 3자리 초과`,
+        ).toBeLessThanOrEqual(3);
+      });
+    });
+
+    // <circle cx cy>, <text x y>의 좌표 속성
+    container
+      .querySelectorAll("circle[cx], circle[cy], text[x], text[y]")
+      .forEach((el) => {
+        ["cx", "cy", "x", "y"].forEach((attr) => {
+          const v = el.getAttribute(attr);
+          if (v && v.includes(".")) {
+            expect(
+              decimalsOf(v),
+              `<${el.tagName.toLowerCase()} ${attr}="${v}">의 소수 3자리 초과`,
+            ).toBeLessThanOrEqual(3);
+          }
+        });
+      });
+  });
 });
