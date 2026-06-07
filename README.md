@@ -15,18 +15,18 @@ npm run dev          # http://localhost:3000
 
 ## 시각 페이지
 
-| URL | 개념 | 출처 |
-|---|---|---|
-| `/agent-loop` | 에이전트 루프 (6단계 순환) | code.claude.com/docs/ko/overview |
-| `/memory-hierarchy` | CLAUDE.md 메모리 계층 (4단) | code.claude.com/docs/ko/memory |
+| URL                 | 개념                        | 출처                             |
+| ------------------- | --------------------------- | -------------------------------- |
+| `/agent-loop`       | 에이전트 루프 (6단계 순환)  | code.claude.com/docs/ko/overview |
+| `/memory-hierarchy` | CLAUDE.md 메모리 계층 (4단) | code.claude.com/docs/ko/memory   |
 
 ## API
 
-| 메서드 | 경로 | 설명 |
-|---|---|---|
-| GET | `/api/concepts` | 개념 목록 |
-| GET | `/api/concepts/[slug]` | 개념 상세 |
-| POST | `/api/feedback` | 피드백 저장 (**미완성 stub** — IDEAS.md #3) |
+| 메서드 | 경로                   | 설명                                        |
+| ------ | ---------------------- | ------------------------------------------- |
+| GET    | `/api/concepts`        | 개념 목록                                   |
+| GET    | `/api/concepts/[slug]` | 개념 상세                                   |
+| POST   | `/api/feedback`        | 피드백 저장 (**미완성 stub** — IDEAS.md #3) |
 
 ## 명령어
 
